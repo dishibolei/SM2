@@ -28,6 +28,7 @@
 
 #include "tommath.h"
 #include "sm3.h"
+#define _DEBUG //打开后进行测试，测试使用的是http://www.oscca.gov.cn/News/201012/News_1197.htm文档里面的例子，使用里面的曲线，实际中不需要打开
 
 //err
 #define ERR_PARAM  -2
@@ -49,13 +50,6 @@
 #define ERR_HEX2BYTE_BEYOND_RANGE			15
 
 
-//define 
-// #define SM2_P     "FFFFFFFEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000FFFFFFFFFFFFFFFF"
-// #define SM2_A     "FFFFFFFEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000FFFFFFFFFFFFFFFC"
-// #define SM2_B     "28E9FA9E9D9F5E344D5A9E4BCF6509A7F39789F515AB8F92DDBCBD414D940E93"
-// #define SM2_N     "FFFFFFFEFFFFFFFFFFFFFFFFFFFFFFFF7203DF6B21C6052B53BBF40939D54123"
-// #define SM2_G_X   "32C4AE2C1F1981195F9904466A39C9948FE30BBFF2660BE1715A4589334C74C7"
-// #define SM2_G_Y   "BC3736A2F4F6779C59BDCEE36B692153D0A9877CC62A474002DF32E52139F0A0"
 extern const char * param_a;
 extern const char * param_b;
 extern const char * param_n;
@@ -391,7 +385,7 @@ int Byte2Mp_Int(mp_int * mp_tar, unsigned char *src_byte, unsigned long lenSrc);
  *  change a string of Ascii(0--f) to BYTE str 
  *  Eg:"1A2B3C4D" (length of 8) will be trasform to byte string 0x1A2B3C4D  (length will be 4)
  *  to use it : hexCharStr2unsignedCharStr("1A2B3C4D", strlen("1A2B3C4D"), 0 , buff, &ulBuffLen);
- *��params:
+ *°°params:
  *  @src, @lsrc : [in] source string
  *  @flag [in] : just input 0
  *  @out, @lout : [out] : output BYTE str

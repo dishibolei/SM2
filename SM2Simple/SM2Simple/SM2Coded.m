@@ -66,4 +66,25 @@
 }
 
 
++ (NSArray *)generyKeyPair
+{
+    unsigned char buff[64] = {0};
+    unsigned char prikeyBuff[2000] = {0};
+    unsigned long priLen = 2000;
+
+    GM_GenSM2keypair(prikeyBuff, &priLen, buff);
+     
+    NSData *pubXD = [NSData dataWithBytes:buff length:32];
+    NSData *pubYD = [NSData dataWithBytes:buff+32 length:32];
+    NSData *priD = [NSData dataWithBytes:prikeyBuff length:priLen];
+    
+    NSString *pubX = [pubXD hexStringFromData:pubXD];
+    NSString *pubY = [pubYD hexStringFromData:pubYD];
+    NSString *pri = [priD hexStringFromData:priD];
+    
+    return @[pubX,pubY,pri];
+}
+
+
+
 @end

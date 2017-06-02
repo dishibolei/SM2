@@ -26,6 +26,8 @@
 //#define SM2_G_X   "32C4AE2C1F1981195F9904466A39C9948FE30BBFF2660BE1715A4589334C74C7"
 //#define SM2_G_Y   "BC3736A2F4F6779C59BDCEE36B692153D0A9877CC62A474002DF32E52139F0A0"
 
+#define PRINT_FORMAT //打印打印按照4字节分割
+
 #define HASH_BIT_LENGTH 256
 #define HASH_BYTE_LENGTH 32
 
@@ -36,25 +38,6 @@
 #define SM2_G_X   "32C4AE2C1F1981195F9904466A39C9948FE30BBFF2660BE1715A4589334C74C7"
 #define SM2_G_Y   "BC3736A2F4F6779C59BDCEE36B692153D0A9877CC62A474002DF32E52139F0A0"
 
-
-//#if 0 //def _DEBUG
-//const char * param_a= "787968B4FA32C3FD2417842E73BBFEFF2F3C848B6831D7E0EC65228B3937E498";
-//const char * param_b= "63E4C6D3B23B0C849CF84241484BFE48F61D59A5B16BA06E6E12D1DA27C5249A";
-//const char * param_n= "8542D69E4C044F18E8B92435BF6FF7DD297720630485628D5AE74EE7C32E79B7";
-//const char * param_p= "8542D69E4C044F18E8B92435BF6FF7DE457283915C45517D722EDB8B08F1DFC3";
-//const char * Xg     = "421DEBD61B62EAB6746434EBC3CC315E32220B3BADD50BDC4C4E6C147FEDD43D";
-//const char * Yg     = "0680512BCBB42C07D47349D2153B70C4E5D7FDFCBFA36EA1A85841B9E46E09A2";
-//#else
-const char * param_a= SM2_A;
-const char * param_b= SM2_B;
-const char * param_n= SM2_N;
-const char * param_p= SM2_P;
-const char * Xg     = SM2_G_X;
-const char * Yg     = SM2_G_Y;
-//#endif //_DEBUG
-
-//#define _DEBUG
-
 #include "sm2.h"
 #include "sm3.h"
 #include "tommath.h"
@@ -63,6 +46,22 @@ const char * Yg     = SM2_G_Y;
 #include "string.h"
 #include "GM_define.h"
 #include "time.h"
+
+#ifdef _DEBUG
+const char * param_a= "787968B4FA32C3FD2417842E73BBFEFF2F3C848B6831D7E0EC65228B3937E498";
+const char * param_b= "63E4C6D3B23B0C849CF84241484BFE48F61D59A5B16BA06E6E12D1DA27C5249A";
+const char * param_n= "8542D69E4C044F18E8B92435BF6FF7DD297720630485628D5AE74EE7C32E79B7";
+const char * param_p= "8542D69E4C044F18E8B92435BF6FF7DE457283915C45517D722EDB8B08F1DFC3";
+const char * Xg     = "421DEBD61B62EAB6746434EBC3CC315E32220B3BADD50BDC4C4E6C147FEDD43D";
+const char * Yg     = "0680512BCBB42C07D47349D2153B70C4E5D7FDFCBFA36EA1A85841B9E46E09A2";
+#else
+const char * param_a= SM2_A;
+const char * param_b= SM2_B;
+const char * param_n= SM2_N;
+const char * param_p= SM2_P;
+const char * Xg     = SM2_G_X;
+const char * Yg     = SM2_G_Y;
+#endif //_DEBUG
 
 
 int myrng(unsigned char *dst, int len, void *dat)
@@ -79,10 +78,12 @@ int MP_print(mp_int * mp_num)
 	int i = 0;
 	for (;i<strlen(buff);i++)
 	{
-		if (0 == i%8)
+#ifdef PRINT_FORMAT
+		if (0 == i % 8)
 		{
 			printf(" ");
 		}
+#endif
 		printf("%c", buff[i]);
 	}
 	printf("\n");
@@ -93,11 +94,13 @@ void BYTE_print(unsigned char * tar, unsigned long l)
 {
 	for (int i = 0; i<l; i++)
 	{
-		if (i %4 ==0)
+#ifdef PRINT_FORMAT
+        if (i % 4 ==0)
 		{
-			printf("");
+			printf(" ");
 		}
-		printf("%02x", tar[i]);
+#endif
+		printf("%02X", tar[i]);
 	}
 	printf("\n");
 }
@@ -1058,14 +1061,15 @@ int genRand_k(mp_int * rand_k, mp_int * mp_n)
 {
 	int ret = 0;
 	srand( (unsigned)time( NULL ) );
+    printf("rand_1");
 	mp_set(rand_k, 1);
-	ret = mp_mul_d(rand_k, rand(), rand_k);
-	CHECK_RET(ret);
-	ret = mp_mul_d(rand_k, rand(), rand_k);
-	CHECK_RET(ret);
-	ret = mp_mul_d(rand_k, rand(), rand_k);
-	CHECK_RET(ret);
+    for (int i = 0; i < 9; i ++) {
+        ret = mp_mul_d(rand_k, rand(), rand_k);
+        CHECK_RET(ret);
+        MP_print(rand_k);
+    }
 	ret = mp_submod(rand_k, mp_n, mp_n, rand_k);
+    MP_print(rand_k);
 	CHECK_RET(ret);
 
 END:
@@ -1230,7 +1234,9 @@ int BYTE_POINT_is_on_sm2_curve(unsigned char * pubkey_XY, unsigned long ulPubXYL
 
 #ifdef _DEBUG
 	MP_print_Space;
+    printf("mp_x=");
 	MP_print(&mp_x);
+    printf("mp_y=");
 	MP_print(&mp_y);
 #endif
 	
@@ -1726,6 +1732,8 @@ int GM_SM2Encrypt(unsigned char * encData, unsigned long * ulEncDataLen, unsigne
 	}
 
 	memcpy(encData, C1_buf, C1_len);
+//    memcpy(encData+C1_len, C3_buf, 32);
+//    memcpy(encData+C1_len+32, C2_buf, C2_len);
 	memcpy(encData+C1_len, C2_buf, C2_len);
 	memcpy(encData+C1_len+C2_len, C3_buf, 32);
 	* ulEncDataLen = 32 + C2_len + C1_len;

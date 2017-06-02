@@ -14,4 +14,6 @@
 
 + (NSString *)sm2Decode:(NSString *)str key:(NSString *)key;
 
++ (NSArray *)generyKeyPair;
+
 @end
