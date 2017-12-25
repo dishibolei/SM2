@@ -12,6 +12,8 @@
 
 @implementation SM2Coded
 
+#define kC1Length 64 * 2 //转成2进制后长度乘以2
+#define kC3Length 32 * 2
 
 + (NSString *)sm2Encode:(NSString *)str key:(NSString *)key {
     if ([str length] == 0 || [key length] == 0) {
@@ -66,24 +68,62 @@
 }
 
 
-+ (NSArray *)generyKeyPair
-{
-    unsigned char buff[64] = {0};
-    unsigned char prikeyBuff[2000] = {0};
-    unsigned long priLen = 2000;
 
-    GM_GenSM2keypair(prikeyBuff, &priLen, buff);
-     
-    NSData *pubXD = [NSData dataWithBytes:buff length:32];
-    NSData *pubYD = [NSData dataWithBytes:buff+32 length:32];
-    NSData *priD = [NSData dataWithBytes:prikeyBuff length:priLen];
+
++ (NSString *)sm2Encode:(NSString *)str key:(NSString *)key mode:(SM2Mode)model {
+    NSString *result = [self sm2Encode:str key:key];
     
-    NSString *pubX = [pubXD hexStringFromData:pubXD];
-    NSString *pubY = [pubYD hexStringFromData:pubYD];
-    NSString *pri = [priD hexStringFromData:priD];
+    if (result.length == 0 || [result length] < 64 + 32) {
+        return result;
+    }
     
-    return @[pubX,pubY,pri];
+    switch (model) {
+        case ESM2ModeC123:
+            return result; //标准算法，直接返回
+            break;
+        case ESM2ModeC132:
+        {
+            NSString *C1 = [result substringToIndex:kC1Length];
+            NSString *C2 = [result substringWithRange:NSMakeRange(kC1Length, result.length - kC1Length - kC3Length)];
+            NSString *C3 = [result substringFromIndex:result.length - kC3Length];
+            
+            NSString *nResult = [NSString stringWithFormat:@"%@%@%@",C1,C3,C2];
+            return nResult;
+        }
+            
+            break;
+        default:
+            break;
+    }
 }
+
+
+
++ (NSString *)sm2Decode:(NSString *)str key:(NSString *)key mode:(SM2Mode)model {
+    if ([str length] < 64 + 32 || [key length] == 0) {
+        return @"";
+    }
+    
+    switch (model) {
+        case ESM2ModeC123:
+            return [self sm2Decode:str key:key];
+            break;
+        case ESM2ModeC132: {
+            //顺序是C1C3C2
+            NSString *C1 = [str substringToIndex:kC1Length];
+            NSString *C3 = [str substringWithRange:NSMakeRange(kC1Length, kC3Length)];
+            NSString *C2 = [str substringFromIndex:kC1Length + kC3Length];
+            
+            NSString *nStr = [NSString stringWithFormat:@"%@%@%@",C1,C2,C3];
+            return [self sm2Decode:nStr key:key];
+        }
+            break;
+        default:
+            break;
+    }
+}
+
+
 
 
 
