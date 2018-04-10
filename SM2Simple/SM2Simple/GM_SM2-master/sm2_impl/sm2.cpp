@@ -308,7 +308,23 @@ int GetPrime(mp_int *m,int lon)
  */
 int Ecc_points_mul(mp_int *result_x,mp_int *result_y, mp_int *px, mp_int *py,mp_int *d,mp_int *param_a,mp_int *param_p)
 {
-	int ret = 0;
+    MP_print_Space;
+    printf("px=");
+    MP_print(px);
+    
+    printf("py=");
+    MP_print(py);
+    
+    printf("d=");
+    MP_print(d);
+    
+    printf("param_a=");
+    MP_print(param_a);
+    
+    printf("param_p=");
+    MP_print(param_p);
+    
+    int ret = 0;
 	mp_int mp_A, mp_P; 
 	mp_int mp_Qx, mp_Qy;
 	mp_int tmp_Qx, tmp_Qy;
@@ -337,10 +353,30 @@ int Ecc_points_mul(mp_int *result_x,mp_int *result_y, mp_int *px, mp_int *py,mp_
 	CHECK_RET(ret);
 	Bt_array_len = strlen (Bt_array);
 	CHECK_RET(ret);
+    
+    printf("Bt_array_len = %ld",Bt_array_len);
 	
 	for(i=0; i<=Bt_array_len-1; i++)
 	{
-		// Q = [2]Q;
+        
+        
+        if (i == Bt_array_len-1) {
+            printf("begin %d\n",i);
+            printf("tmp_Qx=");
+            MP_print(&tmp_Qx);
+            
+            printf("tmp_Qy=");
+            MP_print(&tmp_Qy);
+            
+            printf("mp_Qx=");
+            MP_print(&tmp_Qx);
+            
+            printf("mp_Qy=");
+            MP_print(&tmp_Qy);
+        }
+
+        
+        // Q = [2]Q;
 		ret = Ecc_points_add(&tmp_Qx, &tmp_Qy, &mp_Qx, &mp_Qy, &mp_Qx, &mp_Qy, &mp_A , &mp_P);  
 		CHECK_RET(ret);
 		/////////////
@@ -358,6 +394,22 @@ int Ecc_points_mul(mp_int *result_x,mp_int *result_y, mp_int *px, mp_int *py,mp_
 		CHECK_RET(ret);
 		ret = mp_copy(&tmp_Qy, &mp_Qy);
 		CHECK_RET(ret);
+        
+        
+        if (i == Bt_array_len-1) {
+            printf("after %d\n",i);
+            printf("tmp_Qx=");
+            MP_print(&tmp_Qx);
+            
+            printf("tmp_Qy=");
+            MP_print(&tmp_Qy);
+            
+            printf("mp_Qx=");
+            MP_print(&tmp_Qx);
+            
+            printf("mp_Qy=");
+            MP_print(&tmp_Qy);
+        }
 	}
 	
 	ret = mp_copy(&tmp_Qx, result_x);
@@ -1530,7 +1582,10 @@ int GM_SM2Encrypt(unsigned char * encData, unsigned long * ulEncDataLen, unsigne
 	mp_int mp_rand_k;
 	mp_init_set(&mp_rand_k, 1);
 #ifdef _DEBUG
-	unsigned char rand_k[] = "4C62EEFD6ECFC2B95B92FD6C3D9575148AFA17425546D49018E5388D49DD7B4F";
+//    unsigned char rand_k[] = "4C62EEFD6ECFC2B95B92FD6C3D9575148AFA17425546D49018E5388D49DD7B4F";
+    unsigned char rand_k[] = "19193BDB74D8BD3DD5EE1E69EA9DB5C89A6617481387530D7DA09FD0F30F68F7";
+//    unsigned char rand_k[] = "348DDAB1E1D3027068A3EA2AC792929863AAF16602AD5E2E981814C66716CF61";
+    
 #endif
 	
 	mp_int mp_a, mp_b, mp_n, mp_p, 
@@ -1542,6 +1597,7 @@ int GM_SM2Encrypt(unsigned char * encData, unsigned long * ulEncDataLen, unsigne
 	
 	int ret = 0;
 	int iter = 0;
+    int retry = 0;
 	ret = mp_read_radix(&mp_a, (char *) param_a, 16);
 	CHECK_RET(ret);
 	ret = mp_read_radix(&mp_b, (char *) param_b, 16);
@@ -1554,11 +1610,10 @@ int GM_SM2Encrypt(unsigned char * encData, unsigned long * ulEncDataLen, unsigne
 	CHECK_RET(ret);
 	ret = mp_read_radix(&mp_Yg, (char *) Yg, 16);
 	CHECK_RET(ret);
-
 	do 
 	{
 		// gen rand k < n
-#ifdef _DEBUG	
+#ifdef _DEBUG
 		///  get rand num
 		ret = mp_read_radix(&mp_rand_k, (char *) rand_k, 16);
 		CHECK_RET(ret);
@@ -1609,7 +1664,16 @@ int GM_SM2Encrypt(unsigned char * encData, unsigned long * ulEncDataLen, unsigne
 		Mp_Int2Byte(tmpBuff, &ulTmpBuffLen2, &mp_y1);
 		memcpy(C1_buf+1+ulTmpBuffLen, tmpBuff, ulTmpBuffLen2);
 		C1_len = 1+ ulTmpBuffLen + ulTmpBuffLen2;
-
+        if (C1_len != 65) {
+            //有概率因为随机数的问题导致计算结果少了两位，目前没找到原因，所以这个做个补丁，出问题后重新运行一次
+            retry++;
+            if (retry > 5) {
+                ret = MP_VAL;
+                printf("C1 culture error\n");
+                goto END;
+            }
+            continue;
+        }
 #ifdef _DEBUG
 		MP_print_Space;
         printf("C1= length=%lu\n",C1_len);
@@ -1618,6 +1682,7 @@ int GM_SM2Encrypt(unsigned char * encData, unsigned long * ulEncDataLen, unsigne
 
 		// compute [k]PukeyB = [k](XB,YB) = (x2,y2)
 		ret = Ecc_points_mul(&mp_x2, &mp_y2, &mp_XB, &mp_YB, &mp_rand_k, &mp_a, &mp_p);
+        
 		CHECK_RET(ret);
 #ifdef _DEBUG
 		MP_print_Space;

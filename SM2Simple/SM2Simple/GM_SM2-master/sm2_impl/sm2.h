@@ -28,8 +28,7 @@
 
 #include "tommath.h"
 #include "sm3.h"
-#define _DEBUG //打开后进行测试，测试使用的是http://www.oscca.gov.cn/News/201012/News_1197.htm文档里面的例子，使用里面的曲线，实际中不需要打开
-
+//#define _DEBUG //打开后进行测试，测试使用的是http://www.oscca.gov.cn/News/201012/News_1197.htm文档里面的例子，使用里面的曲线，实际中不需要打开
 //err
 #define ERR_PARAM  -2
 #define ERR_MEM_ALLOC -3

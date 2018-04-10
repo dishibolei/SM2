@@ -31,13 +31,13 @@
 
 - (IBAction)testAction:(id)sender {
     
-    NSArray *keyPair = [SM2Coded generyKeyPair];
-    NSLog(@"keyPaic = %@",keyPair);
+//    NSArray *keyPair = [SM2Coded generyKeyPair];
+//    NSLog(@"keyPaic = %@",keyPair);
     
-    NSString *publicKey = [NSString stringWithFormat:@"%@%@",keyPair[0],keyPair[1]];
-    NSString *priviteKey = keyPair[2];
-    
-    NSLog(@"publicKey = %@ , priKey = %@",publicKey,priviteKey);
+//    NSString *publicKey = [NSString stringWithFormat:@"%@%@",keyPair[0],keyPair[1]];
+//    NSString *priviteKey = keyPair[2];
+//
+//    NSLog(@"publicKey = %@ , priKey = %@",publicKey,priviteKey);
     
 #ifdef _DEBUG //这个定义在了sm2上
     //测试 debug下的值
@@ -57,12 +57,22 @@
     //NSString *priviteKey = @"37503364450f93fdb5c230b14bb166af209d5e0393575e8ec277a92dc6ec9b15";
     
 #endif
+    NSString *publicKey = @"5B0945584BC4CA1E5927344DBE55F55C06CA7DC7534DB6DCC82D1A9F05A112A6AB7F7D177F7F93601C8E8A3D067129639A521CB8D967B9ED3B84A747C850EF3C";
+    NSString *str = @"12345600";
+    __block int error= 0;
     
-    NSString *str = @"encryption standard";
-    NSString *encode = [SM2Coded sm2Encode:str key:publicKey];
-    NSLog(@"encode finished");
-    NSString *decode = [SM2Coded sm2Decode:encode key:priviteKey];
-    NSLog(@"encode = %@ , decode = %@",encode,decode);
+    for (int i = 0; i < 1000; i++) {
+        NSLog(@"第%@次开始",@(i));
+        NSString *encode = [SM2Coded sm2Encode:str key:publicKey mode:ESM2ModeC132];
+        NSLog(@"第%@次结果=%@",@(i),encode);
+        if (encode.length != 208) {
+            error ++;
+        }
+    }
+
+    NSLog(@"error num = %@",@(error));
+//    NSString *decode = [SM2Coded sm2Decode:encode key:priviteKey];
+//    NSLog(@"encode = %@ , decode = %@",encode,decode);
     
 }
 @end
