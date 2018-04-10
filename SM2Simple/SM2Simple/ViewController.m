@@ -1,4 +1,4 @@
-//
+
 //  ViewController.m
 //  SM2Simple
 //
@@ -61,7 +61,7 @@
     NSString *str = @"12345600";
     __block int error= 0;
     
-    for (int i = 0; i < 1000; i++) {
+    for (int i = 0; i < 10000; i++) {
         NSLog(@"第%@次开始",@(i));
         NSString *encode = [SM2Coded sm2Encode:str key:publicKey mode:ESM2ModeC132];
         NSLog(@"第%@次结果=%@",@(i),encode);

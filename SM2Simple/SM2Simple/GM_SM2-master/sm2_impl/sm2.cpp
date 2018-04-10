@@ -308,22 +308,6 @@ int GetPrime(mp_int *m,int lon)
  */
 int Ecc_points_mul(mp_int *result_x,mp_int *result_y, mp_int *px, mp_int *py,mp_int *d,mp_int *param_a,mp_int *param_p)
 {
-    MP_print_Space;
-    printf("px=");
-    MP_print(px);
-    
-    printf("py=");
-    MP_print(py);
-    
-    printf("d=");
-    MP_print(d);
-    
-    printf("param_a=");
-    MP_print(param_a);
-    
-    printf("param_p=");
-    MP_print(param_p);
-    
     int ret = 0;
 	mp_int mp_A, mp_P; 
 	mp_int mp_Qx, mp_Qy;
@@ -353,29 +337,9 @@ int Ecc_points_mul(mp_int *result_x,mp_int *result_y, mp_int *px, mp_int *py,mp_
 	CHECK_RET(ret);
 	Bt_array_len = strlen (Bt_array);
 	CHECK_RET(ret);
-    
-    printf("Bt_array_len = %ld",Bt_array_len);
 	
 	for(i=0; i<=Bt_array_len-1; i++)
 	{
-        
-        
-        if (i == Bt_array_len-1) {
-            printf("begin %d\n",i);
-            printf("tmp_Qx=");
-            MP_print(&tmp_Qx);
-            
-            printf("tmp_Qy=");
-            MP_print(&tmp_Qy);
-            
-            printf("mp_Qx=");
-            MP_print(&tmp_Qx);
-            
-            printf("mp_Qy=");
-            MP_print(&tmp_Qy);
-        }
-
-        
         // Q = [2]Q;
 		ret = Ecc_points_add(&tmp_Qx, &tmp_Qy, &mp_Qx, &mp_Qy, &mp_Qx, &mp_Qy, &mp_A , &mp_P);  
 		CHECK_RET(ret);
@@ -394,22 +358,6 @@ int Ecc_points_mul(mp_int *result_x,mp_int *result_y, mp_int *px, mp_int *py,mp_
 		CHECK_RET(ret);
 		ret = mp_copy(&tmp_Qy, &mp_Qy);
 		CHECK_RET(ret);
-        
-        
-        if (i == Bt_array_len-1) {
-            printf("after %d\n",i);
-            printf("tmp_Qx=");
-            MP_print(&tmp_Qx);
-            
-            printf("tmp_Qy=");
-            MP_print(&tmp_Qy);
-            
-            printf("mp_Qx=");
-            MP_print(&tmp_Qx);
-            
-            printf("mp_Qy=");
-            MP_print(&tmp_Qy);
-        }
 	}
 	
 	ret = mp_copy(&tmp_Qx, result_x);
@@ -1113,15 +1061,12 @@ int genRand_k(mp_int * rand_k, mp_int * mp_n)
 {
 	int ret = 0;
 	srand( (unsigned)time( NULL ) );
-    printf("rand_1");
 	mp_set(rand_k, 1);
     for (int i = 0; i < 9; i ++) {
         ret = mp_mul_d(rand_k, rand(), rand_k);
         CHECK_RET(ret);
-        MP_print(rand_k);
     }
 	ret = mp_submod(rand_k, mp_n, mp_n, rand_k);
-    MP_print(rand_k);
 	CHECK_RET(ret);
 
 END:
@@ -1582,10 +1527,8 @@ int GM_SM2Encrypt(unsigned char * encData, unsigned long * ulEncDataLen, unsigne
 	mp_int mp_rand_k;
 	mp_init_set(&mp_rand_k, 1);
 #ifdef _DEBUG
-//    unsigned char rand_k[] = "4C62EEFD6ECFC2B95B92FD6C3D9575148AFA17425546D49018E5388D49DD7B4F";
-    unsigned char rand_k[] = "19193BDB74D8BD3DD5EE1E69EA9DB5C89A6617481387530D7DA09FD0F30F68F7";
-//    unsigned char rand_k[] = "348DDAB1E1D3027068A3EA2AC792929863AAF16602AD5E2E981814C66716CF61";
-    
+    unsigned char rand_k[] = "4C62EEFD6ECFC2B95B92FD6C3D9575148AFA17425546D49018E5388D49DD7B4F";//标准
+    unsigned char rand_k[] = "19193BDB74D8BD3DD5EE1E69EA9DB5C89A6617481387530D7DA09FD0F30F68F7";//有问题的随机数
 #endif
 	
 	mp_int mp_a, mp_b, mp_n, mp_p, 
