@@ -1060,7 +1060,7 @@ END:
 int genRand_k(mp_int * rand_k, mp_int * mp_n)
 {
 	int ret = 0;
-	srand( (unsigned)time( NULL ) );
+	srand( (unsigned)time( NULL ));
 	mp_set(rand_k, 1);
     for (int i = 0; i < 9; i ++) {
         ret = mp_mul_d(rand_k, rand(), rand_k);
@@ -1526,11 +1526,12 @@ int GM_SM2Encrypt(unsigned char * encData, unsigned long * ulEncDataLen, unsigne
 	//////////////////////////////////////////////////////////////////////////
 	mp_int mp_rand_k;
 	mp_init_set(&mp_rand_k, 1);
+    unsigned char rand_k[] = "614056C0D21D78D067888F729E395FD3596712BF94692CE1DFC6E7BBC3B2A8D9";//默认随机数
 #ifdef _DEBUG
-    unsigned char rand_k[] = "4C62EEFD6ECFC2B95B92FD6C3D9575148AFA17425546D49018E5388D49DD7B4F";//标准
-    unsigned char rand_k[] = "19193BDB74D8BD3DD5EE1E69EA9DB5C89A6617481387530D7DA09FD0F30F68F7";//有问题的随机数
+//    rand_k[] = "19193BDB74D8BD3DD5EE1E69EA9DB5C89A6617481387530D7DA09FD0F30F68F7";//有问题的随机数
+    rand_k[] = "4C62EEFD6ECFC2B95B92FD6C3D9575148AFA17425546D49018E5388D49DD7B4F";//标准的随机数
 #endif
-	
+    
 	mp_int mp_a, mp_b, mp_n, mp_p, 
 		mp_Xg, mp_Yg, mp_XB, mp_YB, 
 		mp_dgst, mp_x1, mp_y1, mp_x2, mp_y2;
@@ -1555,16 +1556,25 @@ int GM_SM2Encrypt(unsigned char * encData, unsigned long * ulEncDataLen, unsigne
 	CHECK_RET(ret);
 	do 
 	{
-		// gen rand k < n
 #ifdef _DEBUG
 		///  get rand num
-		ret = mp_read_radix(&mp_rand_k, (char *) rand_k, 16);
-		CHECK_RET(ret);
-		ret = mp_submod(&mp_rand_k, &mp_n, &mp_n, &mp_rand_k);
-		CHECK_RET(ret);
+        ret = mp_read_radix(&mp_rand_k, (char *) rand_k, 16);
+        CHECK_RET(ret);
+        ret = mp_submod(&mp_rand_k, &mp_n, &mp_n, &mp_rand_k);
+        CHECK_RET(ret);
 #else
-		ret = genRand_k(&mp_rand_k, &mp_n);
-		CHECK_RET(ret);
+        if (retry > 0) {
+            //有概率因为随机数导致后面结果计算异常，所以发现有异常用默认随机数
+            ret = mp_read_radix(&mp_rand_k, (char *) rand_k, 16);
+            CHECK_RET(ret);
+            ret = mp_submod(&mp_rand_k, &mp_n, &mp_n, &mp_rand_k);
+            CHECK_RET(ret);
+        }else {
+            // gen rand k < n
+            ret = genRand_k(&mp_rand_k, &mp_n);
+            MP_print(&mp_rand_k);
+            CHECK_RET(ret);
+        }
 #endif // _DEBUG	
 
 #ifdef _DEBUG

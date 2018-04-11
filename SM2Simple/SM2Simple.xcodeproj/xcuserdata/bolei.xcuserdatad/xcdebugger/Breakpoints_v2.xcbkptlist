@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SM2Simple/SM2Coded.m"
-            timestampString = "545045304.598947"
+            timestampString = "545046393.112504"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "27"
@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SM2Simple/SM2Coded.m"
-            timestampString = "545045304.599112"
+            timestampString = "545046393.112627"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "25"
@@ -42,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SM2Simple/SM2Coded.m"
-            timestampString = "545045304.599207"
+            timestampString = "545046393.112698"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "41"
@@ -58,7 +58,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SM2Simple/SM2Coded.m"
-            timestampString = "545045304.599283"
+            timestampString = "545046393.112783"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "32"
@@ -74,23 +74,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SM2Simple/GM_SM2-master/sm2_impl/sm2.cpp"
-            timestampString = "545045304.5993659"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1082"
-            endingLineNumber = "1082"
-            landmarkName = "KDF(BYTE *str1, long klen, long strlen1)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SM2Simple/GM_SM2-master/sm2_impl/sm2.cpp"
-            timestampString = "545045304.600361"
+            timestampString = "545101953.476317"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1096"
@@ -106,7 +90,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SM2Simple/GM_SM2-master/sm2_impl/sm2.cpp"
-            timestampString = "545045304.60138"
+            timestampString = "545101953.480316"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "638"
@@ -122,7 +106,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SM2Simple/GM_SM2-master/sm2_impl/sm2.cpp"
-            timestampString = "545045304.601981"
+            timestampString = "545101953.481425"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "519"
@@ -138,7 +122,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SM2Simple/GM_SM2-master/sm2_impl/sm2.cpp"
-            timestampString = "545045304.602559"
+            timestampString = "545101953.482093"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "631"
@@ -154,7 +138,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SM2Simple/SM2Coded.m"
-            timestampString = "545045304.603036"
+            timestampString = "545046393.116277"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "84"
@@ -166,43 +150,11 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SM2Simple/GM_SM2-master/sm2_impl/sm2.cpp"
-            timestampString = "545045304.60315"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1062"
-            endingLineNumber = "1062"
-            landmarkName = "genRand_k(mp_int * rand_k, mp_int * mp_n)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SM2Simple/GM_SM2-master/sm2_impl/sm2.cpp"
-            timestampString = "545045304.603615"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1069"
-            endingLineNumber = "1069"
-            landmarkName = "genRand_k(mp_int * rand_k, mp_int * mp_n)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SM2Simple/ViewController.m"
-            timestampString = "545045304.604125"
+            timestampString = "545101953.484411"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "74"
@@ -218,7 +170,7 @@
                   moduleName = "SM2Simple"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/bolei/Documents/%E6%96%87%E6%A1%A3/%E5%AE%89%E5%85%A8%E6%96%87%E6%A1%A3/%E5%9B%BD%E5%AF%86%E7%AE%97%E6%B3%95/SM2_git/SM2Simple/SM2Simple/ViewController.m"
-                  timestampString = "545045304.813151"
+                  timestampString = "545101953.792114"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "77"
@@ -233,7 +185,7 @@
                   moduleName = "SM2Simple"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/bolei/Documents/%E6%96%87%E6%A1%A3/%E5%AE%89%E5%85%A8%E6%96%87%E6%A1%A3/%E5%9B%BD%E5%AF%86%E7%AE%97%E6%B3%95/SM2_git/SM2Simple/SM2Simple/ViewController.m"
-                  timestampString = "545045304.816726"
+                  timestampString = "545101953.79689"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "77"
@@ -250,7 +202,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SM2Simple/SM2Coded.m"
-            timestampString = "545045304.604231"
+            timestampString = "545046393.119258"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "30"
@@ -262,27 +214,11 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SM2Simple/GM_SM2-master/sm2_impl/sm2.cpp"
-            timestampString = "545045304.6043119"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1512"
-            endingLineNumber = "1512"
-            landmarkName = "GM_SM2Encrypt(unsigned char * encData, unsigned long * ulEncDataLen, unsigned char * plain, unsigned long plainLen, unsigned char * szPubkey_XY, unsigned long ul_PubkXY_len)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SM2Simple/ViewController.m"
-            timestampString = "545045304.604836"
+            timestampString = "545101953.485658"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "69"
@@ -298,7 +234,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SM2Simple/GM_SM2-master/sm2_impl/sm2.cpp"
-            timestampString = "545045304.60493"
+            timestampString = "545101953.487704"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "362"
@@ -314,7 +250,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SM2Simple/GM_SM2-master/sm2_impl/sm2.cpp"
-            timestampString = "545045304.605554"
+            timestampString = "545101953.488637"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "347"
@@ -330,11 +266,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SM2Simple/GM_SM2-master/sm2_impl/sm2.cpp"
-            timestampString = "545045304.6061881"
+            timestampString = "545101953.48939"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1628"
-            endingLineNumber = "1628"
+            startingLineNumber = "1638"
+            endingLineNumber = "1638"
             landmarkName = "GM_SM2Encrypt(unsigned char * encData, unsigned long * ulEncDataLen, unsigned char * plain, unsigned long plainLen, unsigned char * szPubkey_XY, unsigned long ul_PubkXY_len)"
             landmarkType = "9">
          </BreakpointContent>
